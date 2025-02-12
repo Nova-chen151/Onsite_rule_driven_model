@@ -226,13 +226,22 @@ $$G_g=\beta_gX+\varepsilon_g$$
 
 换道执行模型主要是为换道车辆规划换道轨迹，即在原车道换道起点和目标车道换道终点之间规划一条连续平滑的曲线。常用的拟合曲线包括正弦曲线、圆弧曲线、横向加速度正反梯形法、贝塞尔曲线、多项式曲线等。考虑到实际路网中曲线方程在旋转变化后的易解析性和计算成本，选择采用三阶贝塞尔曲线：
 
-$$\begin{cases} B_x(q)=P_x^s(1-q)^3+3P_x^{C1}q(1-q)^2+3P_x^{C2}q^2(1-q)+P_x^eq^3 \\ B_y(q)=P_y^s(1-q)^3+3P_y^{C1}q(1-q)^2+3P_y^{C2}q^2(1-q)+P_y^eq^3 & \end{cases}$$
+$$\begin{cases}
+B_x(q)=P_x^s(1-q)^3+3P_x^{C1}q(1-q)^2+3P_x^{C2}q^2(1-q)+P_x^eq^3 \\
+B_y(q)=P_y^s(1-q)^3+3P_y^{C1}q(1-q)^2+3P_y^{C2}q^2(1-q)+P_y^eq^3 & 
+\end{cases}$$
 
 其中， $B$是生成的贝塞尔曲线上的点， $P^s/P^e$分别是贝塞尔曲线的起点和终点， $P^{C1}/P^{C2}$分别是三阶贝塞尔曲线的两个控制点，下标 $x/y$分别表示上述点的横纵坐标，当 $q$在 $0$~ $1$之间逐渐变化时，就在起终点之间生成了一条贝塞尔曲线。
 
 贝塞尔曲线的起点 $P^s$就是车辆判断间隙可接受时所处的位置。由于常态交通流模型都假设车辆是沿着车道中心线行驶的，因此终点 $P^e$位于目标车道的中心线上，具体位置根据车辆的速度计算换道长度 $LC_{Dist}$获得：
 
-$$LC_Dist= \begin{cases} 2 \times L_{veh^{\prime}} & \quad if V_{sub}\leq20km/h \\ 3 \times L_{veh^{\prime}} & \quad if20km/h<V_{sub}\leq30km/h \\ 4 \times L_{veh^{\prime}} & \quad if30km/h<V_{sub}\leq40km/h \\ 5 \times L_{veh^{\prime}} & \quad ifV_{sub}<50km/h & \end{cases}$$
+$$LC_Dist=
+\begin{cases}
+2*L_{veh^{\prime}} & \quad ifV_{sub}\leq20km/h \\
+3*L_{veh^{\prime}} & \quad if20km/h<V_{sub}\leq30km/h \\
+4*L_{veh^{\prime}} & \quad if30km/h<V_{sub}\leq40km/h \\
+5*L_{veh^{\prime}} & \quad ifV_{sub}<50km/h & 
+\end{cases}$$
 
 在操作时，可首先从起点位置 $P^{s}$沿着车道线向下游延长 $LC_Dist$的长度得到点 $P^{e^\prime}$，再从 $P^{e^\prime}$向目标车道中心线做垂线，垂点位置就是贝塞尔曲线的终点 $P^{e}$，**如下图所示**。
 
