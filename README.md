@@ -27,8 +27,8 @@
 ## <span id="jump1">1 环境配置
 + 克隆存储库
 ```
-git clone https://github.com/(后补充)
-cd Traffic_Sim
+git clone https://github.com/Nova-chen151/Onsite_rule_driven_model.git
+cd Onsite_rule_driven_model
 ```
 + 建立虚拟环境 *（可选conda/venv）*，需指定版本为 **Python 3.6.8**
 ```
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 ## <span id="jump3">3 文件说明
 ### 3.1 文件结构说明
 ```
-Traffic_Sim
+Onsite_rule_driven_model
 ├── run_multi_task.py
 ├── simulator.py
 ├── requirements.txt
