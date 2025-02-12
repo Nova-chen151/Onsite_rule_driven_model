@@ -235,13 +235,13 @@ B_y(q)=P_y^s(1-q)^3+3P_y^{C1}q(1-q)^2+3P_y^{C2}q^2(1-q)+P_y^eq^3 &
 
 贝塞尔曲线的起点 $P^s$就是车辆判断间隙可接受时所处的位置。由于常态交通流模型都假设车辆是沿着车道中心线行驶的，因此终点 $P^e$位于目标车道的中心线上，具体位置根据车辆的速度计算换道长度 $LC_{Dist}$获得：
 
-$$LC\_Dist=
-\begin{cases}
-2*L_{veh}, & if V_{sub}\leq 20km/h \\
-3*L_{veh}, & if 20km/h < V_{sub}\leq30km/h \\
-4*L_{veh}, & if 30km/h < V_{sub}\leq40km/h \\
-5*L_{veh}, & if V_{sub}<50km/h & 
-\end{cases}$$
+$$ LC\_{Dist} = \begin{cases} 
+2L_{veh}, & \text{if } V_{sub} \leq 20 \text{ km/h} \\
+3L_{veh}, & \text{if } 20 \text{ km/h} < V_{sub} \leq 30 \text{ km/h} \\
+4L_{veh}, & \text{if } 30 \text{ km/h} < V_{sub} \leq 40 \text{ km/h} \\
+5L_{veh}, & \text{if } V_{sub} < 50 \text{ km/h}
+\end{cases} $$
+
 
 在操作时，可首先从起点位置 $P^{s}$沿着车道线向下游延长 $LC_{Dist}$的长度得到点 $P^{e^\prime}$，再从 $P^{e^\prime}$向目标车道中心线做垂线，垂点位置就是贝塞尔曲线的终点 $P^{e}$，**如下图所示**。
 
