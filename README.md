@@ -4,7 +4,7 @@
     <img src="doc/fig/ONSITE-blue-logo-cn_name.svg" alt="OnSite" width="800">
 </a>
 
-# OnSite场景生成赛道——基于规则驱动的自动驾驶测试场景生成模型
+# OnSite智能场景生成赛道——基于规则驱动的自动驾驶测试场景生成模型
 </div>
 
 <div align="center">
@@ -16,7 +16,7 @@
 </div>
 
 ## 基本概述
-本项目是第三届Onsite自动驾驶算法挑战赛场景生成赛道的样例模型——基于规则驱动的自动驾驶测试场景生成模型。总体技术路线**如下图所示**。
+本项目是第三届Onsite自动驾驶算法挑战赛智能场景生成赛道的样例模型——基于规则驱动的自动驾驶测试场景生成模型。总体技术路线**如下图所示**。
 
 ![Alt text](doc/fig/技术路线图.png "技术路线图")
 
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 > **备注：** 为了兼容性，您可以尝试不同的python版本，例如，Python 3.9.12已被确认是可以正常运行工作。
 
 ## <span id="jump2">2 数据准备
-* 下载[Onsite场景生成赛道赛题](https://pan.baidu.com/s/16twMhQg13O2et2mdYLsfAg?pwd=egwp)（以场景生成赛道的样例场景为例）。下载并解压缩zip文件后，请按以下方式组织数据集目录：
+* 下载[Onsite智能场景生成赛道赛题](https://pan.baidu.com/s/16twMhQg13O2et2mdYLsfAg?pwd=egwp)（以场景生成赛道的样例场景为例）。下载并解压缩zip文件后，请按以下方式组织数据集目录：
 ```
 /path/to/Onsite/
 └── A/
