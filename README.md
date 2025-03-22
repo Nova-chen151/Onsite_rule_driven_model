@@ -41,7 +41,14 @@ conda env create -n onsite -f environment.yml
 conda activate onsite
 ```
 
-> **备注：** 为了兼容性，您可以尝试不同的python版本，例如，Python 3.9.12已被确认是可以正常运行工作。
+> **备注：** 为了兼容性，您可以尝试不同的python版本，例如，Python 3.9.12已被确认是可以正常运行工作。若选手采用其他版本Python环境则需要在数据导出中 **添加protocol=4参数**，确保不同Python版本的兼容性）。相关示例代码如下所示：
+
+```
+import pickle
+output_path = output_dir / f"{scene_name}_output.pkl"    # 保存更新后的场景数据
+with open(output_path, 'wb') as f:
+    pickle.dump(scene_data, f, protocol=4)               # 强制使用protocol4保证兼容性
+```
 
 ## <span id="jump2">2 数据准备
 * 下载[Onsite智能场景生成赛道赛题](https://pan.baidu.com/s/16twMhQg13O2et2mdYLsfAg?pwd=egwp)（以场景生成赛道的样例场景为例）。下载并解压缩zip文件后，请按以下方式组织数据集目录：
