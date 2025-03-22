@@ -35,15 +35,12 @@
 git clone https://github.com/Nova-chen151/Onsite_rule_driven_model.git
 cd Onsite_rule_driven_model
 ```
-+ 建立虚拟环境 *（可选conda/venv）*，需指定版本为 **Python 3.6.8** （与Onsite其他测试工具保持版本一致）
++ 建立虚拟环境并安装核心依赖
 ```
-conda create -n onsite python=3.6.8
+conda env create -n onsite -f environment.yml
 conda activate onsite
 ```
-+ 安装核心依赖
-```
-pip install -r requirements.txt
-```
+
 > **备注：** 为了兼容性，您可以尝试不同的python版本，例如，Python 3.9.12已被确认是可以正常运行工作。
 
 ## <span id="jump2">2 数据准备
