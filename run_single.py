@@ -3,10 +3,10 @@ import xml.dom.minidom
 import pickle
 import numpy as np
 import pandas as pd
-import glob
 import argparse
 from simulator import Sim
 from tkinter import Tk
+from util.modification import adjust_positions, interpolate_short_trajectories, smooth_trajectories, handle_unresolvable_violations
 
 def process_folder(xodr_file, exam_file, output_dir):
     # 读取xodr文件
@@ -33,7 +33,7 @@ def process_folder(xodr_file, exam_file, output_dir):
     # 初始化列表存储数据
     rows = []
     
-# 遍历每个对象和每个帧
+    # 遍历每个对象和每个帧
     for obj_idx in range(len(data['ids'])):
         for frame_idx in range(total_frames):
             if frame_idx < total_frames and data['valid_mask'][obj_idx, frame_idx]:
@@ -101,6 +101,7 @@ def process_folder(xodr_file, exam_file, output_dir):
     output = sim.save_data()
     output['positions'] = output['positions'][1:,:,:]
     output['headings'] = output['headings'][1:,:]
+    
     # 获取需要合并的对象索引
     predict_mask = data['predict_mask']  # 预测的掩码，表示哪些对象需要更新
     obj_indices = np.where(predict_mask)[0]  # 找到需要更新的对象的索引
@@ -146,18 +147,27 @@ def process_folder(xodr_file, exam_file, output_dir):
             # 根据有效帧更新valid_mask
             data['valid_mask'][obj_idx, start_frame:end_frame] = valid_frames
 
-    # 确定统一输出目录（替换原有路径拼接）
+    # 应用修正逻辑
+    print(f"Processing {os.path.basename(os.path.dirname(xodr_file))}")
+    data = adjust_positions(data)
+    data = smooth_trajectories(data)
+    data = handle_unresolvable_violations(data)
+    data = interpolate_short_trajectories(data)
+
+    # 确定统一输出目录
     os.makedirs(output_dir, exist_ok=True)
     
     # 获取根目录的文件夹名并添加 "_output" 后缀
     output_file_name = os.path.basename(os.path.dirname(xodr_file)) + '_output.pkl'
     
-    # 构造输出文件路径（直接使用output_dir）
+    # 构造输出文件路径
     output_file = os.path.join(output_dir, output_file_name)
     
     # 保存文件
     with open(output_file, 'wb') as f:
         pickle.dump(data, f)
+    
+    print(f"处理完成，输出保存至: {output_file}")
 
 if __name__ == '__main__':
     # 配置命令行参数
@@ -170,4 +180,4 @@ if __name__ == '__main__':
     
     process_folder(args.xodr_file, args.exam_file, args.output_dir)
 
-    # python run_single.py --xodr_file Onsite\A\0_1049_merge_1066\0_1049_merge_1066.xodr --exam_file Onsite\A\0_1049_merge_1066\0_1049_merge_1066_exam.pkl --output_dir Onsite\output_A
+# python run_single.py --xodr_file Onsite\第五赛道_B卷\0_6_straight_straight_19\0_6_straight_straight_19.xodr --exam_file Onsite\第五赛道_B卷\0_6_straight_straight_19\0_6_straight_straight_19_exam.pkl --output_dir Onsite\output_A

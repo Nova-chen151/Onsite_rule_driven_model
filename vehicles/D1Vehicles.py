@@ -7,7 +7,6 @@ from functools import reduce
 import pandas as pd
 import random
 
-
 class Vehicle():
     def __init__(self, graph, vehicles, veh_type, plot_vehicle, veh_params, sim_step, all_path_list):
         # 初始化车辆对象，传入图形、车辆属性、车辆类型、绘图对象、车辆参数等
@@ -36,8 +35,9 @@ class Vehicle():
         # 筛选出包含当前路段ID的路径
         valid_paths = [path for path in all_path_list if self.current_link.id in path]
         if valid_paths:
-            # 随机选择一个有效路径
-            path_id_lst = random.choice(valid_paths)
+            # 样例提交中采用的是random，这里为了稳定设置成min
+            path_id_lst = min(valid_paths, key=len)
+            # path_id_lst = random.choice(valid_paths)
 
         self.speed = vehicles[5]  # 初始化车辆的当前速度
         self.next_lane = None  # 初始化目标车道为空
@@ -646,6 +646,9 @@ class Vehicle():
         return self.current_lane.length - self.position  # 返回当前车道的剩余长度，即车道总长度减去车辆当前位置
 
     def at_same_lane(self, v):  # 判断当前车辆是否与目标车辆在同一车道
+        # 检查自身和目标车辆的车道是否存在
+        if self.current_lane is None or v.current_lane is None:
+            return False
         return self.current_lane.id == v.current_lane.id  # 如果车辆所在车道的 id 与目标车辆所在车道的 id 相同，返回 True
 
     def at_last_link(self):  # 判断是否在本车路径中的最后一个路段
