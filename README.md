@@ -113,18 +113,20 @@ Onsite_rule_driven_model
 
 ## <span id="jump4">4 运行测试
 + 单个交通仿真场景生成测试：
-```
+```python
 python ./run_single.py \
     --xodr_file /path/to/scenarios.xodr \           # 输入xodr文件
     --exam_file /path/to/scenarios_exam.pkl \       # 输入exam文件
     --output_dir ./generated_scenarios_save         # 输出目录路径
 ```
 + 批量交通仿真场景生成测试：
-```
+```python
 python ./run_multi.py \
     --input_dir /path/to/Onsite/A \                 # 输入目录路径
     --output_dir ./generated_scenarios_save         # 输出目录路径
 ```
+
++ 完成场景生成后，可通过```util/dynamic_check.py```进行动力学校核自测，相关场景生成文件的路径需要自行修改。
 
 ## <span id="jump5">5 核心算法
 车辆在路网中的行为大致可以划分为跟驰、换道、合流、分流、冲突等交互模块，而其中合流、分流、冲突都可以将其视为跟驰行为的特例进行考虑。因此下面将主要从跟驰、换道两大模型对车辆的微观交互行为进行描述。
@@ -307,3 +309,9 @@ $$ LC\_{Dist} = \begin{cases}
 * **数据准备：** 提供了Onsite场景生成赛道样例赛题的下载链接和数据组织方式。
 * **运行测试：** 提供了运行测试脚本的详细步骤。
 * **文件说明：** 对项目的文件结构和功能进行了详细的说明。
+
+
+### [Ver 3.1.2] - 2025.05.04
+* **轨迹生成修正：** 考虑到基于车道模型初始化与真实值的差异，对轨迹进行修正与平滑处理。
+* **动力学校核：** 提供了动力学校核工具，选手可以自测动力学是否符合约束。
+* **规则驱动模型得分结果：** 提供规则驱动模型的score.csv文件帮助选手进行模型的比较
