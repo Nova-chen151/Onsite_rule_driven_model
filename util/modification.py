@@ -311,26 +311,3 @@ def smooth_trajectories(data):
         iteration += 1
 
     return modified_data
-
-def handle_unresolvable_violations(data):
-    """处理无法解决的超限问题，删除超限后的轨迹"""
-    modified_data = data.copy()
-    positions = modified_data['positions']  # [Na, Nt, 2]
-    headings = modified_data['headings']  # [Na, Nt]
-    valid_mask = modified_data['valid_mask']  # [Na, Nt]
-    ids = modified_data['ids']  # 智能体 ID 列表
-
-    # 验证动态约束
-    result = validate_dynamics(modified_data, warmup=31)
-
-    if result['is_out_dynamic']:
-        for agent_idx in result['violation_frames']:
-            if ids[agent_idx] == 'Ego':
-                continue
-            violation_frames = sorted(list(result['violation_frames'][agent_idx]))
-            earliest_violation_frame = min(violation_frames)
-            positions[agent_idx, earliest_violation_frame:, :] = 0.0
-            headings[agent_idx, earliest_violation_frame:] = 0.0
-            valid_mask[agent_idx, earliest_violation_frame:] = False
-
-    return modified_data
