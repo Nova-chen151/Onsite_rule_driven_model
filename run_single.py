@@ -6,7 +6,7 @@ import pandas as pd
 import argparse
 from simulator import Sim
 from tkinter import Tk
-from util.modification import adjust_positions, interpolate_short_trajectories, smooth_trajectories, handle_unresolvable_violations
+from util.modification import adjust_positions, interpolate_short_trajectories, smooth_trajectories
 
 def process_folder(xodr_file, exam_file, output_dir):
     # 读取xodr文件
