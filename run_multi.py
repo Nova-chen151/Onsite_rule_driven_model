@@ -135,7 +135,6 @@ def process_folder(folder_path, output_dir):
     print(f"Processing {os.path.basename(folder_path)}")
     data = adjust_positions(data)
     data = smooth_trajectories(data)
-    data = handle_unresolvable_violations(data)
     data = interpolate_short_trajectories(data)
 
     # 保存结果
