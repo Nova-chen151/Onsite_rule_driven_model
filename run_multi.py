@@ -7,7 +7,7 @@ import glob
 import argparse
 from simulator import Sim
 from tkinter import Tk
-from util.modification import adjust_positions, interpolate_short_trajectories, smooth_trajectories, handle_unresolvable_violations
+from util.modification import adjust_positions, interpolate_short_trajectories, smooth_trajectories
 
 def process_folder(folder_path, output_dir):
     """处理单个文件夹，生成轨迹并应用所有修正"""
